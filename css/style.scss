@@ -47,13 +47,13 @@ table {
 
 $board-dark: #000;
 
-div.chessboard {
+div#chessboard {
 	div:nth-child(odd) div:nth-child(odd),
 	div:nth-child(even) div:nth-child(even) {
 		background: $board-dark; }
 }
 
-div.chessboard div {
+div#chessboard div {
 	float: left;
 	width: 100%;
 	div {

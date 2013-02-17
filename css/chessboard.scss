@@ -1,6 +1,6 @@
 /* board colors */
 
-$board-dark: #000;
+$board-selected: #999;
 
 div#chessboard {
 	div:nth-child(odd) div:nth-child(odd),
@@ -8,6 +8,14 @@ div#chessboard {
 		background:#ccc;
 		background:-moz-linear-gradient(top, #ccc, #eee);
 		background:-webkit-gradient(linear,0 0, 0 100%, from(#ccc), to(#eee));
+		box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+		-moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+		-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4); }
+	div:nth-child(odd) div:nth-child(odd).selected,
+	div:nth-child(even) div:nth-child(even).selected {
+		background: $board-selected;
+		background:-moz-linear-gradient(top, $board-selected, #eee);
+		background:-webkit-gradient(linear,0 0, 0 100%, from($board-selected), to(#eee));
 		box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 		-moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
 		-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4); } }
@@ -24,9 +32,17 @@ div#chessboard div {
 		background:-webkit-gradient(linear,0 0, 0 100%, from(#fff), to(#eee));
 		box-shadow:inset 0 0 0 1px #fff;
 		-moz-box-shadow:inset 0 0 0 1px #fff;
-		-webkit-box-shadow:inset 0 0 0 1px #fff;
-		a {
-			color: #000;
-			position:absolute;
-			text-decoration: none;
-			text-shadow: 0 1px #fff; } } }
+		-webkit-box-shadow:inset 0 0 0 1px #fff; }
+	div.selected {
+		background:$board-selected;
+		background:-moz-linear-gradient(top, $board-selected, #eee);
+		background:-webkit-gradient(linear,0 0, 0 100%, from($board-selected), to(#eee));
+		box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+		-moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+		-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4); }
+	/* chess piece */
+	a {
+		color: #000;
+		position:absolute;
+		text-decoration: none;
+		text-shadow: 0 1px #fff; } }

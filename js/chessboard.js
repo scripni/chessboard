@@ -69,12 +69,10 @@
         // get the root DOM element
         var root = document.getElementById(boardId);
 
-        console.log('a');
-
         var init = function () {
             if (initialized) { return; }
 
-            window.onresize = function () {
+            function resizePieces() {
                 var anchors = root.getElementsByTagName('a');
                 var squareSize = root.getElementsByTagName('div')[0].getElementsByTagName('div')[0].clientWidth;
                 var pieceRatio = 0.7;
@@ -86,6 +84,8 @@
                     anchor.style.margin = margin + "px";
                 }
             };
+
+            window.onresize = resizePieces;
 
             var squares = new Array();
 
@@ -145,7 +145,7 @@
             squares[8 * 7 + 6].appendChild(createChessPiece("w-knight"));
             squares[8 * 7 + 7].appendChild(createChessPiece("w-rook"));
 
-
+            resizePieces();
             initialized = true;
         };
 

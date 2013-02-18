@@ -1,47 +1,53 @@
-﻿/// <reference path="jquery-1.9.1.debug.js" />
-/// <reference path="knockout-2.2.1.debug.js" />
+(function (document, window) {
+    var chessboards = {};
 
-// define the piece size relative to the square
-var pieceSizeRatio = 0.8;
+    var chessboard = window.chessboard = function (boardId) {
 
-$(document).ready(function () {
-    setMoveOnClick();
-    $(window).resize(resizePieces);
-    resizePieces();
-});
+        // fallback to the default id if no id was specified
+        boardId = boardId || "chessboard";
 
-function setMoveOnClick() {
-    /// <summary>Attaches the click handler to all chess pieces on the board.</summary>
-    var squares = $("#chessboard div div");
-    squares.click(function () {
-        if ($("a", this).length > 0) {
-            $(this).addClass("selected");
-        } else {
-            var selectedPiece = $("div.selected a").first();
-            if (selectedPiece) {
-                $(this).append($("div.selected>a"));
-            }
-        };
-    });
-    $("a", chessboard).click(function () {
-        if ($(this).hasClass("selected")) {
-            $(this).parent().removeClass("selected");
-        } else {
-            $("div div", chessboard).removeClass("selected");
-            $(this).parent().addClass("selected");
+        // check if the board has already been created
+        if (chessboards["chessboard-root-" + boardId]) {
+            return chessboards["chessboard-root-" + boardId];
         }
-    });
-}
 
-function resizePieces() {
-    /// <summary>Recalculates the piece size based on the size of their containing squares.</summary>
-    var chessboard = $("#chessboard");
-    var squareSize = $("div div", chessboard).first().width();
-    var pieceSize = squareSize * pieceSizeRatio;
-    var pieceMargin = squareSize * ((1 - pieceSizeRatio) / 2);
+        // only initialize each board once
+        var initialized = false;
 
-    $("a", chessboard).each(function () {
-        $(this).css("font-size", pieceSize);
-        $(this).css("margin", pieceMargin);
-    });
-}
+        // get the root DOM element
+        var root = document.getElementById(boardId);
+
+        var init = function () {
+            if (initialized) { return; }
+
+            // add rows
+            for (var r = 0; r < 8; r++) {
+                var row = document.createElement("div");
+
+                // add cells
+                for (var c = 0; c < 8; c++) {
+                    var cell = document.createElement("div");
+
+                    // set the onclick event to handle piece movement
+                    cell.onclick = function () {
+                        // if no piece is present on the square, return
+                        if (this.childElementCount == 0) { return; }
+
+                        this.classList.toggle('selected');
+                    };
+                    row.appendChild(cell);
+                };
+
+                root.appendChild(row);
+            };
+
+            // add event handlers
+
+            initialized = true;
+        };
+
+        return (chessboards["chessboard-root-" + boardId] = {
+            init: init
+        });
+    }
+})(document, window);

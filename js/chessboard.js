@@ -156,6 +156,48 @@
 })(document, window);
 
 function ChessEngine() {
-    var occupied_squares = [0x00000000, 0x00000000];
 
+};
+
+function ChessPiece(type) {
+    // all data will be stored on 64 bits (32 + 32)
+    // each bit represents one board square
+    // to keep it simple, black will always be at the top of the board
+    // this means that position[0] holds the first 4 rows
+    // and the first half of all 8 columns,
+    // leaving the rest for position[1]
+    var position = [0x00000000, 0x00000000];
+    var attacking_squares = [0x00000000, 0x00000000];
+    var move_squares = [0x00000000, 0x00000000];
+    var pieceType = type;
+};
+
+ChessPiece.prototype.getColumn = function () {
+    // the column is the same every 8th cell
+    // cell indexing starts from 0
+    if (this.position[0] > 0) {
+        var columnPosition = this.position[0] % Math.pow(2, 7);
+        // columnPosition is 2 ^ column
+        return Math.log(columnPosition);
+    } else {
+        var columnPosition = this.position[1] % Math.pow(2, 7);
+        // columnPosition is 4 + 2 ^ column
+        return 4 + Math.log(columnPosition);
+    }
+};
+
+ChessPiece.prototype.getRow = function () {
+    // the row increases every 8 cells
+    if (this.position[0] > 0) {
+        var rowPosition = this.position[0] / Math.pow(2, 3);
+        return rowPosition;
+    } else {
+        var rowPosition = this.position[1] / Math.pow(2, 3);
+        return rowPosition + 4;
+    }
+};
+
+ChessPiece.prototype.setPosition = function (row, column) {
+    // the position is stored as 2 ^ ((8 * row) + column)
+    this.position = Math.pow(2, 8 * row + column);
 };

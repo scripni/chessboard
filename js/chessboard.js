@@ -154,3 +154,8 @@
         });
     }
 })(document, window);
+
+function ChessEngine() {
+    var occupied_squares = [0x00000000, 0x00000000];
+
+};

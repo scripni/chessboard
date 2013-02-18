@@ -61,6 +61,8 @@
 
         // only initialize each board once
         var initialized = false;
+        
+        var selectedPiece = null;
 
         // get the root DOM element
         var root = document.getElementById(boardId);
@@ -121,9 +123,19 @@
 
             initialized = true;
         };
+        
+        var getSelectedPiece = function() {
+            return selectedPiece;
+        };
+        
+        var setSelectedPiece = function(value) {
+              selectedPiece = value;
+        };
 
         return (chessboards["chessboard-root-" + boardId] = {
             init: init,
+            getSelectedPiece: getSelectedPiece,
+            setSelectedPiece: setSelectedPiece,
         });
     }
 })(document, window);

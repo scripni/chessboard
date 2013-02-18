@@ -43,7 +43,7 @@
                 piece.innerHTML = "&#9818;";
                 break;
             default:
-                piece.innerHTML = "piece_not_defined";
+                piece.innerHTML = "X";
                 break;
         };
         return piece;

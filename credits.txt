@@ -1,5 +1,4 @@
 ﻿I've used the following resources for developing the chess board:
 
-1. http://knockoutjs.com/ Knockout.JS, an MVVM javascript framework
 2. http://sass-lang.com/ SASS (Syntactically Awesome Stylesheets)
 3. http://designindevelopment.com/css/css3-chess-board/ A chess board written only using CSS, by Seth Aldridge

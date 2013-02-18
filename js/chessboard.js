@@ -1,6 +1,6 @@
 (function (document, window) {
     var chessboards = {};
-    
+
     function createChessPiece(type) {
         /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
         var piece = document.createElement("a");
@@ -69,8 +69,23 @@
         // get the root DOM element
         var root = document.getElementById(boardId);
 
+        console.log('a');
+
         var init = function () {
             if (initialized) { return; }
+
+            window.onresize = function () {
+                var anchors = root.getElementsByTagName('a');
+                var squareSize = root.getElementsByTagName('div')[0].getElementsByTagName('div')[0].clientWidth;
+                var pieceRatio = 0.7;
+                var pieceSize = squareSize * pieceRatio;
+                var margin = (squareSize - pieceSize) / 2;
+                for (var i = 0; i < anchors.length; i++) {
+                    var anchor = anchors[i];
+                    anchor.style.fontSize = pieceSize + "px";
+                    anchor.style.margin = margin + "px";
+                }
+            };
 
             var squares = new Array();
 

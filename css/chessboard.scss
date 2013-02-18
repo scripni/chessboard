@@ -13,7 +13,7 @@ div#chessboard {
 		-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4); }
 	div:nth-child(odd) div:nth-child(odd).selected,
 	div:nth-child(even) div:nth-child(even).selected {
-		background: $board-selected;
+ 		background: $board-selected;
 		background:-moz-linear-gradient(top, $board-selected, #eee);
 		background:-webkit-gradient(linear,0 0, 0 100%, from($board-selected), to(#eee));
 		box-shadow:inset 0 0 10px rgba(0,0,0,.4);

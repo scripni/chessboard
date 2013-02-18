@@ -1,7 +1,8 @@
 (function (document, window) {
     var chessboards = {};
-
+    
     function createChessPiece(type) {
+        /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
         var piece = document.createElement("a");
         switch (type) {
             // white pieces
@@ -23,7 +24,8 @@
             case "w-king":
                 piece.innerHTML = "&#9812;";
                 break;
-            // black pieces
+
+                // black pieces
             case "b-pawn":
                 piece.innerHTML = "&#9823;";
                 break;
@@ -61,8 +63,8 @@
 
         // only initialize each board once
         var initialized = false;
-        
-        var selectedPiece = null;
+
+        var selectedSquare = null;
 
         // get the root DOM element
         var root = document.getElementById(boardId);
@@ -82,12 +84,20 @@
 
                     // set the onclick event to handle piece movement
                     cell.onclick = function () {
-                        // if no piece is present on the square, return
-                        if (this.childElementCount == 0) { return; }
 
-                        this.classList.toggle('selected');
+                        if (selectedSquare == this) {
+                            selectedSquare.classList.remove('selected');
+                            selectedSquare = null;
+                        } else if (this.getElementsByTagName('a').length == 0 && selectedSquare != null) {
+                            this.appendChild(selectedSquare.getElementsByTagName('a')[0]);
+                            selectedSquare.classList.remove('selected');
+                            selectedSquare = null;
+                        } else if (this.getElementsByTagName('a').length > 0 && selectedSquare == null) {
+                            selectedSquare = this;
+                            selectedSquare.classList.add('selected');
+                        }
                     };
-                    
+
                     row.appendChild(cell);
                     squares.push(cell);
                 };
@@ -123,19 +133,9 @@
 
             initialized = true;
         };
-        
-        var getSelectedPiece = function() {
-            return selectedPiece;
-        };
-        
-        var setSelectedPiece = function(value) {
-              selectedPiece = value;
-        };
 
         return (chessboards["chessboard-root-" + boardId] = {
             init: init,
-            getSelectedPiece: getSelectedPiece,
-            setSelectedPiece: setSelectedPiece,
         });
     }
 })(document, window);

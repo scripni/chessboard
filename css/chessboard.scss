@@ -3,6 +3,7 @@
 $board-selected: #999;
 
 div#chessboard {
+	max-width:800px;
 	div:nth-child(odd) div:nth-child(odd),
 	div:nth-child(even) div:nth-child(even) {
 		background:#ccc;

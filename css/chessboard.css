@@ -1,20 +1,22 @@
 /* board colors */
-div#chessboard div:nth-child(odd) div:nth-child(odd),
-div#chessboard div:nth-child(even) div:nth-child(even) {
-  background: #ccc;
-  background: -moz-linear-gradient(top, #cccccc, #eeeeee);
-  background: -webkit-gradient(linear, 0 0, 0 100%, from(#cccccc), to(#eeeeee));
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4); }
-div#chessboard div:nth-child(odd) div:nth-child(odd).selected,
-div#chessboard div:nth-child(even) div:nth-child(even).selected {
-  background: #999999;
-  background: -moz-linear-gradient(top, #999999, #eeeeee);
-  background: -webkit-gradient(linear, 0 0, 0 100%, from(#999999), to(#eeeeee));
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4); }
+div#chessboard {
+  max-width: 800px; }
+  div#chessboard div:nth-child(odd) div:nth-child(odd),
+  div#chessboard div:nth-child(even) div:nth-child(even) {
+    background: #ccc;
+    background: -moz-linear-gradient(top, #cccccc, #eeeeee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#cccccc), to(#eeeeee));
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4); }
+  div#chessboard div:nth-child(odd) div:nth-child(odd).selected,
+  div#chessboard div:nth-child(even) div:nth-child(even).selected {
+    background: #999999;
+    background: -moz-linear-gradient(top, #999999, #eeeeee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#999999), to(#eeeeee));
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4); }
 
 div#chessboard div {
   float: left;

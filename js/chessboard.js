@@ -65,11 +65,10 @@
         // get the root DOM element
         var root = document.getElementById(boardId);
 
-        // store the board squares
-        var squares = new Array();
-
         var init = function () {
             if (initialized) { return; }
+
+            var squares = new Array();
 
             // add rows
             for (var r = 0; r < 8; r++) {
@@ -86,8 +85,8 @@
 
                         this.classList.toggle('selected');
                     };
+                    
                     row.appendChild(cell);
-
                     squares.push(cell);
                 };
 
@@ -125,7 +124,6 @@
 
         return (chessboards["chessboard-root-" + boardId] = {
             init: init,
-            squares: squares,
         });
     }
 })(document, window);

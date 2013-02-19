@@ -37,6 +37,8 @@
                 piece.innerHTML = "&#9812;";
                 break;
         }
+        piece.setAttribute('data-type', type);
+        piece.setAttribute('data-color', chessEngine.pieceColors.white);
         return piece;
     }
 
@@ -66,6 +68,8 @@
                 piece.innerHTML = "X";
                 break;
         }
+        piece.setAttribute('data-type', type);
+        piece.setAttribute('data-color', chessEngine.pieceColors.black);
         return piece;
     }
 

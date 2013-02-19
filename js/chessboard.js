@@ -189,17 +189,16 @@ ChessPiece.prototype.getRow = function () {
         var val = this.position[1];
         for (var r = 0; r < 4; r++) {
             for (var c = 0; c < 8; c++) {
-                console.log(val);
-                val = val >> 1;
                 if (val == 1) return r;
+                val = val >>> 1;
             }
         }
     } else {
         var val = this.position[0];
         for (var r = 4; r < 8; r++) {
             for (var c = 0; c < 8; c++) {
-                val = val >> 1;
                 if (val == 1) return r;
+                val = val >>> 1;
             }
         }
     }

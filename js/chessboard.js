@@ -196,7 +196,7 @@ ChessPiece.prototype.setPosition = function (row, column) {
     // the position is stored as 2 ^ ((8 * row) + column)
     var pow = 8 * row + (7 - column);
     if (pow > 31) {
-        pow = pow - 31;
+        pow = pow - 32;
         this.position[0] = Math.pow(2, pow);
     } else {
         this.position[1] = Math.pow(2, pow);

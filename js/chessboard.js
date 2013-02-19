@@ -159,17 +159,17 @@ function ChessEngine() {
 
 };
 
-function ChessPiece(type) {
+function ChessPiece(type, row, column) {
     // all data will be stored on 64 bits (32 + 32)
     // each bit represents one board square
     // to keep it simple, black will always be at the top of the board
     // this means that position[0] holds the first 4 rows
     // and the first half of all 8 columns,
     // leaving the rest for position[1]
-    var position = [0x00000000, 0x00000000];
-    var attacking_squares = [0x00000000, 0x00000000];
-    var move_squares = [0x00000000, 0x00000000];
-    var pieceType = type;
+    this.position = [0x00000000, 0x00000000];
+    this.attacking_squares = [0x00000000, 0x00000000];
+    this.move_squares = [0x00000000, 0x00000000];
+    this.pieceType = type;
 };
 
 ChessPiece.prototype.getColumn = function () {

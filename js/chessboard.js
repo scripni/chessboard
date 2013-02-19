@@ -166,66 +166,21 @@
 
 function ChessPiece(type, row, column) {
     "use strict";
-    // all data will be stored on 64 bits (32 + 32)
-    // each bit represents one board square
-    // to keep it simple, black will always be at the top of the board
-    // this means that position[0] holds the first 4 rows
-    // and the first half of all 8 columns,
-    // leaving the rest for position[1]
-    this.position = [0x00000000, 0x00000000];
-    this.attacking_squares = [0x00000000, 0x00000000];
-    this.move_squares = [0x00000000, 0x00000000];
+    this.position = [row, column];
     this.pieceType = type;
-    this.setPosition(row, column);
 }
 
 ChessPiece.prototype.getColumn = function () {
     "use strict";
-    // the column is the same every 8th cell
-    // cell indexing starts from 0
-    if (this.position[0] > 0) {
-        return 7 - Math.floor(Math.log(this.position[0]) / Math.LN2 % 8);
-    }
-    return 7 - Math.floor(Math.log(this.position[1]) / Math.LN2 % 8);
+    return this.position[1];
 };
 
 ChessPiece.prototype.getRow = function () {
     "use strict";
-    var r = 0,
-        c = 0,
-        val = null;
-    // the row increases every 8 cells
-    if (this.position[1] > 0) {
-        val = this.position[1];
-        for (r = 0; r < 4; r++) {
-            for (c = 0; c < 8; c++) {
-                if (val === 1) {
-                    return r;
-                }
-                val = val >>> 1;
-            }
-        }
-    } else {
-        val = this.position[0];
-        for (r = 4; r < 8; r++) {
-            for (c = 0; c < 8; c++) {
-                if (val === 1) {
-                    return r;
-                }
-                val = val >>> 1;
-            }
-        }
-    }
+    return this.position[0];
 };
 
 ChessPiece.prototype.setPosition = function (row, column) {
     "use strict";
-    // the position is stored as 2 ^ ((8 * row) + column)
-    var pow = 8 * row + (7 - column);
-    if (pow > 31) {
-        pow = pow - 32;
-        this.position[0] = (1 << pow) >>> 0;
-    } else {
-        this.position[1] = (1 << pow) >>> 0;
-    }
+    this.position = [row, column];
 };

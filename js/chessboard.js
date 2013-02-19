@@ -1,130 +1,77 @@
 /*jslint browser:true, bitwise:true */
 
-var chessEngine = {
-    ChessPiece: function (type, color, row, column) {
-        "use strict";
-        this.pieceType = type;
-        this.color = color;
-        this.position = [row, column];
+var Scripni = {
+    ChessGame: function () {
     },
-    pieceColors: { white: 1, black: 2 },
-    pieceTypes: { king: 1, queen: 2, rook: 3, bishop: 4, knight: 5, pawn: 6 }
-};
+    ChessBoard: function (boardId) {
 
-Object.freeze(chessEngine.pieceColors);
-Object.freeze(chessEngine.pieceTypes);
-
-chessEngine.ChessPiece.prototype.getColumn = function () {
-    "use strict";
-    return this.position[1];
-};
-
-chessEngine.ChessPiece.prototype.getRow = function () {
-    "use strict";
-    return this.position[0];
-};
-
-chessEngine.ChessPiece.prototype.setPosition = function (row, column) {
-    "use strict";
-    this.position = [row, column];
-};
-
-chessEngine.ChessPiece.prototype.getType = function () {
-    "use strict";
-    return this.pieceType.substring(this.pieceType.indexOf('-') + 1, this.pieceType.length);
-};
-
-chessEngine.ChessPiece.prototype.getValue = function () {
-    "use strict";
-    switch (this.getType()) {
-        case chessEngine.pieceTypes.pawn:
-            return 1;
-        case chessEngine.pieceTypes.knight:
-        case chessEngine.pieceTypes.bishop:
-            return 3;
-        case chessEngine.pieceTypes.rook:
-            return 5;
-        case chessEngine.pieceTypes.queen:
-            return 9;
-        case chessEngine.pieceTypes.king:
-            return 100;
-    }
-};
-
-(function (document, window) {
-    "use strict";
-
-    var chessboards = {};
-
-    function createWhitePiece(type) {
-        var piece = document.createElement("a");
-        switch (type) {
-            // white pieces
-            case chessEngine.pieceTypes.pawn:
-                piece.innerHTML = "&#9817;";
-                break;
-            case chessEngine.pieceTypes.rook:
-                piece.innerHTML = "&#9814;";
-                break;
-            case chessEngine.pieceTypes.knight:
-                piece.innerHTML = "&#9816;";
-                break;
-            case chessEngine.pieceTypes.bishop:
-                piece.innerHTML = "&#9815;";
-                break;
-            case chessEngine.pieceTypes.queen:
-                piece.innerHTML = "&#9813;";
-                break;
-            case chessEngine.pieceTypes.king:
-                piece.innerHTML = "&#9812;";
-                break;
-        }
-        piece.setAttribute('data-type', type);
-        piece.setAttribute('data-color', chessEngine.pieceColors.white);
-        return piece;
-    }
-
-    function createBlackPiece(type) {
-        var piece = document.createElement("a");
-        switch (type) {
-            // black pieces
-            case chessEngine.pieceTypes.pawn:
-                piece.innerHTML = "&#9823;";
-                break;
-            case chessEngine.pieceTypes.rook:
-                piece.innerHTML = "&#9820;";
-                break;
-            case chessEngine.pieceTypes.knight:
-                piece.innerHTML = "&#9822;";
-                break;
-            case chessEngine.pieceTypes.bishop:
-                piece.innerHTML = "&#9821;";
-                break;
-            case chessEngine.pieceTypes.queen:
-                piece.innerHTML = "&#9819;";
-                break;
-            case chessEngine.pieceTypes.king:
-                piece.innerHTML = "&#9818;";
-                break;
-            default:
-                piece.innerHTML = "X";
-                break;
-        }
-        piece.setAttribute('data-type', type);
-        piece.setAttribute('data-color', chessEngine.pieceColors.black);
-        return piece;
-    }
-
-    function createChessPiece(type, color) {
-        /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
-        if (color === chessEngine.pieceColors.white) {
-            return createWhitePiece(type);
+        function createWhitePiece(type) {
+            var piece = document.createElement("a");
+            switch (type) {
+                // white pieces
+                case chessEngine.pieceTypes.pawn:
+                    piece.innerHTML = "&#9817;";
+                    break;
+                case chessEngine.pieceTypes.rook:
+                    piece.innerHTML = "&#9814;";
+                    break;
+                case chessEngine.pieceTypes.knight:
+                    piece.innerHTML = "&#9816;";
+                    break;
+                case chessEngine.pieceTypes.bishop:
+                    piece.innerHTML = "&#9815;";
+                    break;
+                case chessEngine.pieceTypes.queen:
+                    piece.innerHTML = "&#9813;";
+                    break;
+                case chessEngine.pieceTypes.king:
+                    piece.innerHTML = "&#9812;";
+                    break;
+            }
+            piece.setAttribute('data-type', type);
+            piece.setAttribute('data-color', chessEngine.pieceColors.white);
+            return piece;
         }
 
-        return createBlackPiece(type);
-    }
+        function createBlackPiece(type) {
+            var piece = document.createElement("a");
+            switch (type) {
+                // black pieces
+                case chessEngine.pieceTypes.pawn:
+                    piece.innerHTML = "&#9823;";
+                    break;
+                case chessEngine.pieceTypes.rook:
+                    piece.innerHTML = "&#9820;";
+                    break;
+                case chessEngine.pieceTypes.knight:
+                    piece.innerHTML = "&#9822;";
+                    break;
+                case chessEngine.pieceTypes.bishop:
+                    piece.innerHTML = "&#9821;";
+                    break;
+                case chessEngine.pieceTypes.queen:
+                    piece.innerHTML = "&#9819;";
+                    break;
+                case chessEngine.pieceTypes.king:
+                    piece.innerHTML = "&#9818;";
+                    break;
+                default:
+                    piece.innerHTML = "X";
+                    break;
+            }
+            piece.setAttribute('data-type', type);
+            piece.setAttribute('data-color', chessEngine.pieceColors.black);
+            return piece;
+        }
 
-    window.chessboard = function (boardId) {
+        function createChessPiece(type, color) {
+            /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
+            if (color === chessEngine.pieceColors.white) {
+                return createWhitePiece(type);
+            }
+
+            return createBlackPiece(type);
+        }
 
         // fallback to the default id if no id was specified
         boardId = boardId || "chessboard";
@@ -238,5 +185,57 @@ chessEngine.ChessPiece.prototype.getValue = function () {
             init: init
         };
         return chessboards["chessboard-root-" + boardId];
-    };
-}(document, window));
+    },
+    ChessPiece: function (type, color, row, column) {
+        "use strict";
+        this.pieceType = type;
+        this.color = color;
+        this.position = [row, column];
+    },
+    SimpleEngine: function () {
+    },
+    PieceColor: { White: 1, Black: 2 },
+    PieceType: { king: 1, queen: 2, rook: 3, bishop: 4, knight: 5, pawn: 6 }
+};
+
+Object.freeze(Scripni.PieceColor);
+Object.freeze(Scripni.PieceType);
+
+Scripni.ChessPiece.prototype.getColumn = function () {
+    "use strict";
+    return this.position[1];
+};
+
+Scripni.ChessPiece.prototype.getRow = function () {
+    "use strict";
+    return this.position[0];
+};
+
+Scripni.ChessPiece.prototype.setPosition = function (row, column) {
+    "use strict";
+    this.position = [row, column];
+};
+
+Scripni.ChessPiece.prototype.getType = function () {
+    "use strict";
+    return this.pieceType;
+};
+
+Scripni.ChessPiece.prototype.getValue = function () {
+    "use strict";
+    switch (this.getType()) {
+        case chessEngine.pieceTypes.pawn:
+            return 1;
+        case chessEngine.pieceTypes.knight:
+        case chessEngine.pieceTypes.bishop:
+            return 3;
+        case chessEngine.pieceTypes.rook:
+            return 5;
+        case chessEngine.pieceTypes.queen:
+            return 9;
+        case chessEngine.pieceTypes.king:
+            return 100;
+    }
+};
+
+var chessboards = {};

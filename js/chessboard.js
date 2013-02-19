@@ -186,9 +186,22 @@ ChessPiece.prototype.getColumn = function () {
 ChessPiece.prototype.getRow = function () {
     // the row increases every 8 cells
     if (this.position[1] > 0) {
-        return Math.floor(Math.log(this.position[1]) / Math.LN2 / 8);
+        var val = this.position[1];
+        for (var r = 0; r < 4; r++) {
+            for (var c = 0; c < 8; c++) {
+                console.log(val);
+                val = val >> 1;
+                if (val == 1) return r;
+            }
+        }
     } else {
-        return Math.floor(Math.log(this.position[0]) / Math.LN2 / 8) + 4;
+        var val = this.position[0];
+        for (var r = 4; r < 8; r++) {
+            for (var c = 0; c < 8; c++) {
+                val = val >> 1;
+                if (val == 1) return r;
+            }
+        }
     }
 };
 
@@ -197,8 +210,8 @@ ChessPiece.prototype.setPosition = function (row, column) {
     var pow = 8 * row + (7 - column);
     if (pow > 31) {
         pow = pow - 32;
-        this.position[0] = Math.pow(2, pow);
+        this.position[0] = (1 << pow) >>> 0;
     } else {
-        this.position[1] = Math.pow(2, pow);
+        this.position[1] = (1 << pow) >>> 0;
     }
 };

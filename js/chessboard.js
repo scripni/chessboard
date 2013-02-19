@@ -2,6 +2,9 @@
 
 (function (document, window) {
     "use strict";
+
+    var chessboards = {};
+
     function createChessPiece(type) {
         /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
         var piece = document.createElement("a");
@@ -51,8 +54,6 @@
         }
         return piece;
     }
-
-    var chessboards = {};
 
     window.chessboard = function (boardId) {
 
@@ -164,23 +165,53 @@
     };
 }(document, window));
 
-function ChessPiece(type, row, column) {
-    "use strict";
-    this.position = [row, column];
-    this.pieceType = type;
-}
+var chessEngine = {
+    ChessPiece: function (type, color, row, column) {
+        "use strict";
+        this.pieceType = type;
+        this.color = color;
+        this.position = [row, column];
+    },
+    pieceColors: { white: 1, black: 2 },
+    pieceTypes: { king: 1, queen: 2, rook: 3, bishop: 4, knight: 5, pawn: 6 }
+};
 
-ChessPiece.prototype.getColumn = function () {
+Object.freeze(chessEngine.pieceColors);
+Object.freeze(chessEngine.pieceTypes);
+
+chessEngine.ChessPiece.prototype.getColumn = function () {
     "use strict";
     return this.position[1];
 };
 
-ChessPiece.prototype.getRow = function () {
+chessEngine.ChessPiece.prototype.getRow = function () {
     "use strict";
     return this.position[0];
 };
 
-ChessPiece.prototype.setPosition = function (row, column) {
+chessEngine.ChessPiece.prototype.setPosition = function (row, column) {
     "use strict";
     this.position = [row, column];
+};
+
+chessEngine.ChessPiece.prototype.getType = function () {
+    "use strict";
+    return this.pieceType.substring(this.pieceType.indexOf('-') + 1, this.pieceType.length);
+};
+
+chessEngine.ChessPiece.prototype.getValue = function () {
+    "use strict";
+    switch (this.getType()) {
+        case chessEngine.pieceTypes.pawn:
+            return 1;
+        case chessEngine.pieceTypes.knight:
+        case chessEngine.pieceTypes.bishop:
+            return 3;
+        case chessEngine.pieceTypes.rook:
+            return 5;
+        case chessEngine.pieceTypes.queen:
+            return 9;
+        case chessEngine.pieceTypes.king:
+            return 100;
+    }
 };

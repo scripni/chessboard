@@ -7,8 +7,9 @@
     <script type="text/javascript" src="js/chessboard.js"></script>
     <script type="text/javascript">
         test("ChessPiece.BlankValues", function () {
-            var piece = new ChessPiece();
-            equal(piece.getColumn(), 0);
+            var piece = new ChessPiece('w-pawn', 1, 1);
+            equal(piece.getRow(), 1);
+            equal(piece.getColumn(), 1);
         });
     </script>
 </head>

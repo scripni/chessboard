@@ -170,34 +170,35 @@ function ChessPiece(type, row, column) {
     this.attacking_squares = [0x00000000, 0x00000000];
     this.move_squares = [0x00000000, 0x00000000];
     this.pieceType = type;
+    this.setPosition(row, column);
 };
 
 ChessPiece.prototype.getColumn = function () {
     // the column is the same every 8th cell
     // cell indexing starts from 0
     if (this.position[0] > 0) {
-        var columnPosition = this.position[0] % Math.pow(2, 7);
-        // columnPosition is 2 ^ column
-        return Math.log(columnPosition);
+        return 7 - Math.floor(Math.log(this.position[0]) / Math.LN2 % 8);
     } else {
-        var columnPosition = this.position[1] % Math.pow(2, 7);
-        // columnPosition is 4 + 2 ^ column
-        return 4 + Math.log(columnPosition);
+        return 7 - Math.floor(Math.log(this.position[1]) / Math.LN2 % 8);
     }
 };
 
 ChessPiece.prototype.getRow = function () {
     // the row increases every 8 cells
-    if (this.position[0] > 0) {
-        var rowPosition = this.position[0] / Math.pow(2, 3);
-        return rowPosition;
+    if (this.position[1] > 0) {
+        return Math.floor(Math.log(this.position[1]) / Math.LN2 / 8);
     } else {
-        var rowPosition = this.position[1] / Math.pow(2, 3);
-        return rowPosition + 4;
+        return Math.floor(Math.log(this.position[0]) / Math.LN2 / 8) + 4;
     }
 };
 
 ChessPiece.prototype.setPosition = function (row, column) {
     // the position is stored as 2 ^ ((8 * row) + column)
-    this.position = Math.pow(2, 8 * row + column);
+    var pow = 8 * row + (7 - column);
+    if (pow > 31) {
+        pow = pow - 31;
+        this.position[0] = Math.pow(2, pow);
+    } else {
+        this.position[1] = Math.pow(2, pow);
+    }
 };

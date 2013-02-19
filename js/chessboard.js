@@ -1,18 +1,60 @@
 /*jslint browser:true, bitwise:true */
 
+var chessEngine = {
+    ChessPiece: function (type, color, row, column) {
+        "use strict";
+        this.pieceType = type;
+        this.color = color;
+        this.position = [row, column];
+    },
+    pieceColors: { white: 1, black: 2 },
+    pieceTypes: { king: 1, queen: 2, rook: 3, bishop: 4, knight: 5, pawn: 6 }
+};
+
+Object.freeze(chessEngine.pieceColors);
+Object.freeze(chessEngine.pieceTypes);
+
+chessEngine.ChessPiece.prototype.getColumn = function () {
+    "use strict";
+    return this.position[1];
+};
+
+chessEngine.ChessPiece.prototype.getRow = function () {
+    "use strict";
+    return this.position[0];
+};
+
+chessEngine.ChessPiece.prototype.setPosition = function (row, column) {
+    "use strict";
+    this.position = [row, column];
+};
+
+chessEngine.ChessPiece.prototype.getType = function () {
+    "use strict";
+    return this.pieceType.substring(this.pieceType.indexOf('-') + 1, this.pieceType.length);
+};
+
+chessEngine.ChessPiece.prototype.getValue = function () {
+    "use strict";
+    switch (this.getType()) {
+        case chessEngine.pieceTypes.pawn:
+            return 1;
+        case chessEngine.pieceTypes.knight:
+        case chessEngine.pieceTypes.bishop:
+            return 3;
+        case chessEngine.pieceTypes.rook:
+            return 5;
+        case chessEngine.pieceTypes.queen:
+            return 9;
+        case chessEngine.pieceTypes.king:
+            return 100;
+    }
+};
+
 (function (document, window) {
     "use strict";
 
     var chessboards = {};
-
-    function createChessPiece(type, color) {
-        /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
-        if (color === chessEngine.pieceColors.white) {
-            return createWhitePiece(type);
-        }
-
-        return createBlackPiece(type);
-    }
 
     function createWhitePiece(type) {
         var piece = document.createElement("a");
@@ -73,6 +115,15 @@
         return piece;
     }
 
+    function createChessPiece(type, color) {
+        /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
+        if (color === chessEngine.pieceColors.white) {
+            return createWhitePiece(type);
+        }
+
+        return createBlackPiece(type);
+    }
+
     window.chessboard = function (boardId) {
 
         // fallback to the default id if no id was specified
@@ -95,17 +146,24 @@
                     r = 0,
                     c = 0,
                     i = 0,
+                    max = 0,
                     row = null,
                     cell = null,
                     movePiece = function () {
+                        var hasAnchor = this.getElementsByTagName('a').length !== 0;
                         if (selectedSquare === this) {
+                            // clicking the selected square de-selects it
                             selectedSquare.classList.remove('selected');
                             selectedSquare = null;
-                        } else if (this.getElementsByTagName('a').length === 0 && selectedSquare !== null) {
+                        } else if (!hasAnchor && selectedSquare !== null) {
+                            // clicking an empty square while a piece is selected
+                            // moves the piece to that square and deselects it
                             this.appendChild(selectedSquare.getElementsByTagName('a')[0]);
                             selectedSquare.classList.remove('selected');
                             selectedSquare = null;
-                        } else if (this.getElementsByTagName('a').length > 0 && selectedSquare === null) {
+                        } else if (hasAnchor && selectedSquare === null) {
+                            // clicking a square that has a piece if no square
+                            // is selected selects the clicked square
                             selectedSquare = this;
                             selectedSquare.classList.add('selected');
                         }
@@ -120,7 +178,7 @@
                         i = 0,
                         anchor = null;
 
-                    for (i = 0; i < anchors.length; i++) {
+                    for (i = 0, max = anchors.length; i < max; i++) {
                         anchor = anchors[i];
                         anchor.style.fontSize = pieceSize + "px";
                         anchor.style.margin = margin + "px";
@@ -182,54 +240,3 @@
         return chessboards["chessboard-root-" + boardId];
     };
 }(document, window));
-
-var chessEngine = {
-    ChessPiece: function (type, color, row, column) {
-        "use strict";
-        this.pieceType = type;
-        this.color = color;
-        this.position = [row, column];
-    },
-    pieceColors: { white: 1, black: 2 },
-    pieceTypes: { king: 1, queen: 2, rook: 3, bishop: 4, knight: 5, pawn: 6 }
-};
-
-Object.freeze(chessEngine.pieceColors);
-Object.freeze(chessEngine.pieceTypes);
-
-chessEngine.ChessPiece.prototype.getColumn = function () {
-    "use strict";
-    return this.position[1];
-};
-
-chessEngine.ChessPiece.prototype.getRow = function () {
-    "use strict";
-    return this.position[0];
-};
-
-chessEngine.ChessPiece.prototype.setPosition = function (row, column) {
-    "use strict";
-    this.position = [row, column];
-};
-
-chessEngine.ChessPiece.prototype.getType = function () {
-    "use strict";
-    return this.pieceType.substring(this.pieceType.indexOf('-') + 1, this.pieceType.length);
-};
-
-chessEngine.ChessPiece.prototype.getValue = function () {
-    "use strict";
-    switch (this.getType()) {
-        case chessEngine.pieceTypes.pawn:
-            return 1;
-        case chessEngine.pieceTypes.knight:
-        case chessEngine.pieceTypes.bishop:
-            return 3;
-        case chessEngine.pieceTypes.rook:
-            return 5;
-        case chessEngine.pieceTypes.queen:
-            return 9;
-        case chessEngine.pieceTypes.king:
-            return 100;
-    }
-};

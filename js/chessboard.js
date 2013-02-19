@@ -5,47 +5,61 @@
 
     var chessboards = {};
 
-    function createChessPiece(type) {
+    function createChessPiece(type, color) {
         /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
+        if (color === chessEngine.pieceColors.white) {
+            return createWhitePiece(type);
+        }
+
+        return createBlackPiece(type);
+    }
+
+    function createWhitePiece(type) {
         var piece = document.createElement("a");
         switch (type) {
             // white pieces
-            case "w-pawn":
+            case chessEngine.pieceTypes.pawn:
                 piece.innerHTML = "&#9817;";
                 break;
-            case "w-rook":
+            case chessEngine.pieceTypes.rook:
                 piece.innerHTML = "&#9814;";
                 break;
-            case "w-knight":
+            case chessEngine.pieceTypes.knight:
                 piece.innerHTML = "&#9816;";
                 break;
-            case "w-bishop":
+            case chessEngine.pieceTypes.bishop:
                 piece.innerHTML = "&#9815;";
                 break;
-            case "w-queen":
+            case chessEngine.pieceTypes.queen:
                 piece.innerHTML = "&#9813;";
                 break;
-            case "w-king":
+            case chessEngine.pieceTypes.king:
                 piece.innerHTML = "&#9812;";
                 break;
+        }
+        return piece;
+    }
 
-                // black pieces
-            case "b-pawn":
+    function createBlackPiece(type) {
+        var piece = document.createElement("a");
+        switch (type) {
+            // black pieces
+            case chessEngine.pieceTypes.pawn:
                 piece.innerHTML = "&#9823;";
                 break;
-            case "b-rook":
+            case chessEngine.pieceTypes.rook:
                 piece.innerHTML = "&#9820;";
                 break;
-            case "b-knight":
+            case chessEngine.pieceTypes.knight:
                 piece.innerHTML = "&#9822;";
                 break;
-            case "b-bishop":
+            case chessEngine.pieceTypes.bishop:
                 piece.innerHTML = "&#9821;";
                 break;
-            case "b-queen":
+            case chessEngine.pieceTypes.queen:
                 piece.innerHTML = "&#9819;";
                 break;
-            case "b-king":
+            case chessEngine.pieceTypes.king:
                 piece.innerHTML = "&#9818;";
                 break;
             default:
@@ -131,28 +145,28 @@
 
                 // add the chess pieces for the starting position
 
-                squares[0].appendChild(createChessPiece("b-rook"));
-                squares[1].appendChild(createChessPiece("b-knight"));
-                squares[2].appendChild(createChessPiece("b-bishop"));
-                squares[3].appendChild(createChessPiece("b-queen"));
-                squares[4].appendChild(createChessPiece("b-king"));
-                squares[5].appendChild(createChessPiece("b-bishop"));
-                squares[6].appendChild(createChessPiece("b-knight"));
-                squares[7].appendChild(createChessPiece("b-rook"));
+                squares[0].appendChild(createBlackPiece(chessEngine.pieceTypes.rook));
+                squares[1].appendChild(createBlackPiece(chessEngine.pieceTypes.knight));
+                squares[2].appendChild(createBlackPiece(chessEngine.pieceTypes.bishop));
+                squares[3].appendChild(createBlackPiece(chessEngine.pieceTypes.queen));
+                squares[4].appendChild(createBlackPiece(chessEngine.pieceTypes.king));
+                squares[5].appendChild(createBlackPiece(chessEngine.pieceTypes.bishop));
+                squares[6].appendChild(createBlackPiece(chessEngine.pieceTypes.knight));
+                squares[7].appendChild(createBlackPiece(chessEngine.pieceTypes.rook));
 
                 for (i = 0; i < 8; i++) {
-                    squares[8 + i].appendChild(createChessPiece("b-pawn"));
-                    squares[8 * 6 + i].appendChild(createChessPiece("w-pawn"));
+                    squares[8 + i].appendChild(createBlackPiece(chessEngine.pieceTypes.pawn));
+                    squares[8 * 6 + i].appendChild(createWhitePiece(chessEngine.pieceTypes.pawn));
                 }
 
-                squares[8 * 7].appendChild(createChessPiece("w-rook"));
-                squares[8 * 7 + 1].appendChild(createChessPiece("w-knight"));
-                squares[8 * 7 + 2].appendChild(createChessPiece("w-bishop"));
-                squares[8 * 7 + 3].appendChild(createChessPiece("w-queen"));
-                squares[8 * 7 + 4].appendChild(createChessPiece("w-king"));
-                squares[8 * 7 + 5].appendChild(createChessPiece("w-bishop"));
-                squares[8 * 7 + 6].appendChild(createChessPiece("w-knight"));
-                squares[8 * 7 + 7].appendChild(createChessPiece("w-rook"));
+                squares[8 * 7].appendChild(createWhitePiece(chessEngine.pieceTypes.rook));
+                squares[8 * 7 + 1].appendChild(createWhitePiece(chessEngine.pieceTypes.knight));
+                squares[8 * 7 + 2].appendChild(createWhitePiece(chessEngine.pieceTypes.bishop));
+                squares[8 * 7 + 3].appendChild(createWhitePiece(chessEngine.pieceTypes.queen));
+                squares[8 * 7 + 4].appendChild(createWhitePiece(chessEngine.pieceTypes.king));
+                squares[8 * 7 + 5].appendChild(createWhitePiece(chessEngine.pieceTypes.bishop));
+                squares[8 * 7 + 6].appendChild(createWhitePiece(chessEngine.pieceTypes.knight));
+                squares[8 * 7 + 7].appendChild(createWhitePiece(chessEngine.pieceTypes.rook));
 
                 resizePieces();
                 initialized = true;

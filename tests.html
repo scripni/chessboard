@@ -6,22 +6,39 @@
     <script type="text/javascript" src="node_modules/qunitjs/qunit/qunit.js"></script>
     <script type="text/javascript" src="js/chessboard.js"></script>
     <script type="text/javascript">
-        function checkPosition(row, column) {
-            test("checkPosition", function () {
+        function createChessPiece_ValidPosition_SetsCorrectPosition(row, column) {
+            /// <summary> Creates a new default chess piece and checks that the row and column properties are initialized.
+            test("CreateChessPiece ValidPosition SetsCorrectPosition", function () {
                 var piece = new Scripni.ChessPiece(Scripni.PieceType.PAWN, Scripni.PieceColor.WHITE, row, column);
                 equal(piece.getRow(), row);
                 equal(piece.getColumn(), column);
             });
         };
-        checkPosition(0, 0);
-        checkPosition(1, 1);
-        checkPosition(6, 6);
-        checkPosition(5, 2);
-        checkPosition(2, 5);
-        checkPosition(3, 0);
-        checkPosition(0, 7);
-        checkPosition(7, 0);
-        checkPosition(7, 7);
+
+        function createChessPiece_InvalidPosition_ThrowsException(row, column) {
+            /// <summary> Attempts to create a chess piece at the specified row and column and expects an exception to be thrown. </summary>
+            test("CreateChessPiece InvalidPosition ThrowsException",
+                function () {
+                    raises(function () {
+                        new Scripni.ChessPiece(Scripni.PieceType.PAWN, Scripni.PieceColor.WHITE, row, column);
+                    },
+                    "Must throw error")
+                });
+        };
+
+        // valid boundaries
+        createChessPiece_ValidPosition_SetsCorrectPosition(0, 0);
+        createChessPiece_ValidPosition_SetsCorrectPosition(7, 7);
+
+        // invalid boundaries
+        createChessPiece_InvalidPosition_ThrowsException(-1, 0);
+        createChessPiece_InvalidPosition_ThrowsException(0, -1);
+        createChessPiece_InvalidPosition_ThrowsException(8, 7);
+        createChessPiece_InvalidPosition_ThrowsException(8, 7);
+
+        // range check
+        createChessPiece_ValidPosition_SetsCorrectPosition(Scripni.Math.getRandomInt(0, 7), Scripni.Math.getRandomInt(0, 7));
+
     </script>
 </head>
 <body>

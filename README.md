@@ -2,7 +2,7 @@ chessboard
 ==========
 
 # Description
-A chess engine implemented using css & javascript.
+Initially just wanted to write a chessboard using css & js, but I've started adding a chess engine as well.
 # License
  Copyright 2013 Andrei Scripniciuc
 

@@ -9,27 +9,28 @@ var Scripni = {
             var piece = document.createElement("a");
             switch (type) {
                 // white pieces
-                case chessEngine.pieceTypes.pawn:
+                case Scripni.PieceType.pawn:
                     piece.innerHTML = "&#9817;";
                     break;
-                case chessEngine.pieceTypes.rook:
+                case Scripni.PieceType.rook:
                     piece.innerHTML = "&#9814;";
                     break;
-                case chessEngine.pieceTypes.knight:
+                case Scripni.PieceType.knight:
                     piece.innerHTML = "&#9816;";
                     break;
-                case chessEngine.pieceTypes.bishop:
+                case Scripni.PieceType.bishop:
                     piece.innerHTML = "&#9815;";
                     break;
-                case chessEngine.pieceTypes.queen:
+                case Scripni.PieceType.queen:
                     piece.innerHTML = "&#9813;";
                     break;
-                case chessEngine.pieceTypes.king:
+                case Scripni.PieceType.king:
                     piece.innerHTML = "&#9812;";
                     break;
             }
+
             piece.setAttribute('data-type', type);
-            piece.setAttribute('data-color', chessEngine.pieceColors.white);
+            piece.setAttribute('data-color', Scripni.PieceColor.WHITE);
             return piece;
         }
 
@@ -37,36 +38,37 @@ var Scripni = {
             var piece = document.createElement("a");
             switch (type) {
                 // black pieces
-                case chessEngine.pieceTypes.pawn:
+                case Scripni.PieceType.PAWN:
                     piece.innerHTML = "&#9823;";
                     break;
-                case chessEngine.pieceTypes.rook:
+                case Scripni.PieceType.ROOK:
                     piece.innerHTML = "&#9820;";
                     break;
-                case chessEngine.pieceTypes.knight:
+                case Scripni.PieceType.KNIGHT:
                     piece.innerHTML = "&#9822;";
                     break;
-                case chessEngine.pieceTypes.bishop:
+                case Scripni.PieceType.BISHOP:
                     piece.innerHTML = "&#9821;";
                     break;
-                case chessEngine.pieceTypes.queen:
+                case Scripni.PieceType.QUEEN:
                     piece.innerHTML = "&#9819;";
                     break;
-                case chessEngine.pieceTypes.king:
+                case Scripni.PieceType.KING:
                     piece.innerHTML = "&#9818;";
                     break;
                 default:
                     piece.innerHTML = "X";
                     break;
             }
+
             piece.setAttribute('data-type', type);
-            piece.setAttribute('data-color', chessEngine.pieceColors.black);
+            piece.setAttribute('data-color', Scripni.PieceColor.BLACK);
             return piece;
         }
 
         function createChessPiece(type, color) {
             /// <summary>Creates an anchor containing a chess piece of the specified type.</summary>
-            if (color === chessEngine.pieceColors.white) {
+            if (color === Scripni.PieceColor.WHITE) {
                 return createWhitePiece(type);
             }
 
@@ -154,28 +156,28 @@ var Scripni = {
 
                 // add the chess pieces for the starting position
 
-                squares[0].appendChild(createBlackPiece(chessEngine.pieceTypes.rook));
-                squares[1].appendChild(createBlackPiece(chessEngine.pieceTypes.knight));
-                squares[2].appendChild(createBlackPiece(chessEngine.pieceTypes.bishop));
-                squares[3].appendChild(createBlackPiece(chessEngine.pieceTypes.queen));
-                squares[4].appendChild(createBlackPiece(chessEngine.pieceTypes.king));
-                squares[5].appendChild(createBlackPiece(chessEngine.pieceTypes.bishop));
-                squares[6].appendChild(createBlackPiece(chessEngine.pieceTypes.knight));
-                squares[7].appendChild(createBlackPiece(chessEngine.pieceTypes.rook));
+                squares[0].appendChild(createBlackPiece(Scripni.PieceType.rook));
+                squares[1].appendChild(createBlackPiece(Scripni.PieceType.knight));
+                squares[2].appendChild(createBlackPiece(Scripni.PieceType.bishop));
+                squares[3].appendChild(createBlackPiece(Scripni.PieceType.queen));
+                squares[4].appendChild(createBlackPiece(Scripni.PieceType.king));
+                squares[5].appendChild(createBlackPiece(Scripni.PieceType.bishop));
+                squares[6].appendChild(createBlackPiece(Scripni.PieceType.knight));
+                squares[7].appendChild(createBlackPiece(Scripni.PieceType.rook));
 
                 for (i = 0; i < 8; i++) {
-                    squares[8 + i].appendChild(createBlackPiece(chessEngine.pieceTypes.pawn));
-                    squares[8 * 6 + i].appendChild(createWhitePiece(chessEngine.pieceTypes.pawn));
+                    squares[8 + i].appendChild(createBlackPiece(Scripni.PieceType.pawn));
+                    squares[8 * 6 + i].appendChild(createWhitePiece(Scripni.PieceType.pawn));
                 }
 
-                squares[8 * 7].appendChild(createWhitePiece(chessEngine.pieceTypes.rook));
-                squares[8 * 7 + 1].appendChild(createWhitePiece(chessEngine.pieceTypes.knight));
-                squares[8 * 7 + 2].appendChild(createWhitePiece(chessEngine.pieceTypes.bishop));
-                squares[8 * 7 + 3].appendChild(createWhitePiece(chessEngine.pieceTypes.queen));
-                squares[8 * 7 + 4].appendChild(createWhitePiece(chessEngine.pieceTypes.king));
-                squares[8 * 7 + 5].appendChild(createWhitePiece(chessEngine.pieceTypes.bishop));
-                squares[8 * 7 + 6].appendChild(createWhitePiece(chessEngine.pieceTypes.knight));
-                squares[8 * 7 + 7].appendChild(createWhitePiece(chessEngine.pieceTypes.rook));
+                squares[8 * 7].appendChild(createWhitePiece(Scripni.PieceType.rook));
+                squares[8 * 7 + 1].appendChild(createWhitePiece(Scripni.PieceType.knight));
+                squares[8 * 7 + 2].appendChild(createWhitePiece(Scripni.PieceType.bishop));
+                squares[8 * 7 + 3].appendChild(createWhitePiece(Scripni.PieceType.queen));
+                squares[8 * 7 + 4].appendChild(createWhitePiece(Scripni.PieceType.king));
+                squares[8 * 7 + 5].appendChild(createWhitePiece(Scripni.PieceType.bishop));
+                squares[8 * 7 + 6].appendChild(createWhitePiece(Scripni.PieceType.knight));
+                squares[8 * 7 + 7].appendChild(createWhitePiece(Scripni.PieceType.rook));
 
                 resizePieces();
                 initialized = true;
@@ -186,6 +188,7 @@ var Scripni = {
         };
         return chessboards["chessboard-root-" + boardId];
     },
+
     ChessPiece: function (type, color, row, column) {
         "use strict";
         this.pieceType = type;
@@ -194,48 +197,53 @@ var Scripni = {
     },
     SimpleEngine: function () {
     },
-    PieceColor: { White: 1, Black: 2 },
-    PieceType: { king: 1, queen: 2, rook: 3, bishop: 4, knight: 5, pawn: 6 }
+    PieceColor: { WHITE: 1, BLACK: 2 },
+    PieceType: { KING: 1, QUEEN: 2, ROOK: 3, BISHOP: 4, KNIGHT: 5, PAWN: 6 }
 };
 
-Object.freeze(Scripni.PieceColor);
-Object.freeze(Scripni.PieceType);
-
-Scripni.ChessPiece.prototype.getColumn = function () {
+// Make sure no globals get created
+(function () {
     "use strict";
-    return this.position[1];
-};
+    // This should make PieceColor and PieceType seem more like enums
+    Object.freeze(Scripni.PieceColor);
+    Object.freeze(Scripni.PieceType);
 
-Scripni.ChessPiece.prototype.getRow = function () {
-    "use strict";
-    return this.position[0];
-};
+    Scripni.ChessPiece.prototype.getColumn = function () {
+        "use strict";
+        return this.position[1];
+    };
 
-Scripni.ChessPiece.prototype.setPosition = function (row, column) {
-    "use strict";
-    this.position = [row, column];
-};
+    Scripni.ChessPiece.prototype.getRow = function () {
+        "use strict";
+        return this.position[0];
+    };
 
-Scripni.ChessPiece.prototype.getType = function () {
-    "use strict";
-    return this.pieceType;
-};
+    Scripni.ChessPiece.prototype.setPosition = function (row, column) {
+        "use strict";
+        this.position = [row, column];
+    };
 
-Scripni.ChessPiece.prototype.getValue = function () {
-    "use strict";
-    switch (this.getType()) {
-        case chessEngine.pieceTypes.pawn:
-            return 1;
-        case chessEngine.pieceTypes.knight:
-        case chessEngine.pieceTypes.bishop:
-            return 3;
-        case chessEngine.pieceTypes.rook:
-            return 5;
-        case chessEngine.pieceTypes.queen:
-            return 9;
-        case chessEngine.pieceTypes.king:
-            return 100;
-    }
-};
+    Scripni.ChessPiece.prototype.getType = function () {
+        "use strict";
+        return this.pieceType;
+    };
 
-var chessboards = {};
+    Scripni.ChessPiece.prototype.getValue = function () {
+        "use strict";
+        switch (this.getType()) {
+            case Scripni.PieceType.PAWN:
+                return 1;
+            case Scripni.PieceType.KNIGHT:
+            case Scripni.PieceType.BISHOP:
+                return 3;
+            case Scripni.PieceType.ROOK:
+                return 5;
+            case Scripni.PieceType.QUEEN:
+                return 9;
+            case Scripni.PieceType.KING:
+                return 100;
+        }
+    };
+
+    var chessboards = {};
+}());

@@ -1,8 +1,11 @@
 /*jslint browser:true, bitwise:true */
 
 var Scripni = {
-    ChessGame: function () {
+    ChessGame: function (board) {
         /// <summary> This will encapsulate a chess game. </summary>
+        this.engine = new SimpleEngine();
+        this.position = new ChessPosition();
+        this.board = board;
     },
 
     ChessBoard: function (boardId) {
@@ -217,6 +220,29 @@ var Scripni = {
 
     SimpleEngine: function () {
         /// <summary> It's really simple... </summary>
+    },
+
+    PngParser: {
+        /// <summary> Library for parsing .png chess games. </summary>
+
+    },
+
+    ChessPosition: function (position) {
+        /// <summary> Data structure defining a chess position. </summary>
+
+        function fromPieceList(pieces) {
+            this.pieces = pieces;
+        };
+
+        function fromPng(png) {
+            this.png = png;
+        };
+
+        if (typeof position.pieces !== 'undefined') {
+            fromPieceList(position.pieces);
+        } else {
+            fromPng(position.png);
+        }
     },
 
     PieceColor: {

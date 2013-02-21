@@ -245,6 +245,7 @@ var Scripni = {
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
     },
+
     Error: {
         ArgumentOutOfRangeMessage: function (argName, argValue, min, max) {
             /// <summary> Error message for an argument out of range error. </summary>
